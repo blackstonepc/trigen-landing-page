@@ -1,19 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 
 const Contact: React.FC = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState<string | null>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
-  // Placeholder for EmailJS integration
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setStatus('Sending...')
-    // TODO: Integrate EmailJS here
-    setTimeout(() => setStatus('Message sent! (EmailJS integration coming soon)'), 1000)
-  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    if (!formRef.current) return
+
+    setStatus('Sending...')
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
+
+    emailjs
+      .sendForm(serviceId, templateId, formRef.current, publicKey)
+      .then(() => {
+        setStatus('Message sent!')
+        formRef.current?.reset()
+      })
+      .catch(() => setStatus('Something went wrong. Please try again.'))
   }
 
   return (
@@ -22,13 +31,11 @@ const Contact: React.FC = () => {
         <h2 className="text-4xl md:text-5xl font-headline font-bold mb-4 text-gold tracking-tight">Contact Us</h2>
         <div className="w-20 h-1 bg-gold rounded mb-8 mx-auto" />
         <p className="text-lg text-offwhite mb-8 font-body opacity-80">Have questions or want to discuss investment opportunities? Reach out below.</p>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
           <input
             type="text"
             name="name"
             placeholder="Your Name"
-            value={form.name}
-            onChange={handleChange}
             required
             className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/60 font-body"
           />
@@ -36,16 +43,12 @@ const Contact: React.FC = () => {
             type="email"
             name="email"
             placeholder="Your Email"
-            value={form.email}
-            onChange={handleChange}
             required
             className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/60 font-body"
           />
           <textarea
             name="message"
             placeholder="Your Message"
-            value={form.message}
-            onChange={handleChange}
             required
             rows={5}
             className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/60 font-body"
