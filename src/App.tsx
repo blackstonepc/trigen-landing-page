@@ -6,9 +6,9 @@ import Contact from './components/Contact'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col w-full bg-offwhite text-midnight font-body">
-      <header className="w-full py-8 px-8 md:px-16 text-3xl font-headline font-bold tracking-widest flex items-center justify-between border-b border-gold bg-midnight text-gold shadow-sm">
-        <span>Trigen Capital</span>
+    <div className="bg-charcoal min-h-screen">
+      <header className="fixed top-0 left-0 w-full z-10 p-4 flex items-center justify-between border-b border-silver bg-midnight text-silver shadow-sm">
+        <div className="text-2xl font-headline font-bold">Trigen Capital</div>
       </header>
       <main className="flex-grow w-full flex flex-col gap-0">
         <Hero />

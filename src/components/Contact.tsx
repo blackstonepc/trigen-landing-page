@@ -26,44 +26,52 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <section id="contact" className="w-full flex flex-col items-center justify-center px-4 py-20 bg-midnight rounded-3xl shadow-2xl my-16 max-w-3xl mx-auto">
-      <div className="max-w-xl w-full text-center">
-        <h2 className="text-4xl md:text-5xl font-headline font-bold mb-4 text-gold tracking-tight">Contact Us</h2>
-        <div className="w-20 h-1 bg-gold rounded mb-8 mx-auto" />
-        <p className="text-lg text-offwhite mb-8 font-body opacity-80">Have questions or want to discuss investment opportunities? Reach out below.</p>
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            required
-            className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/60 font-body"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            required
-            className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/60 font-body"
-          />
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            required
-            rows={5}
-            className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/60 font-body"
-          />
-          <button
-            type="submit"
-            className="w-full py-3 rounded bg-gold text-charcoal font-headline font-bold text-lg shadow-lg hover:bg-gold/90 transition-colors duration-200 tracking-wide uppercase"
-          >
+    <div className="bg-midnight py-20 px-4 font-body" id="contact">
+      <div className="container mx-auto max-w-2xl text-center">
+        <h2 className="text-4xl md:text-5xl font-headline font-bold mb-4 text-silver tracking-tight">Contact Us</h2>
+        <div className="w-20 h-1 bg-silver rounded mb-8 mx-auto" />
+        <p className="text-offwhite mb-10 text-lg">
+          Have a question or want to discuss an opportunity? Fill out the form below, and we'll get back to you shortly.
+        </p>
+        <form onSubmit={handleSubmit} className="text-left space-y-6">
+          <div>
+            <label htmlFor="name" className="block text-offwhite mb-2 font-semibold">Name</label>
+            <input
+              type="text"
+              name="user_name"
+              id="name"
+              required
+              className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-silver/30 focus:outline-none focus:ring-2 focus:ring-silver/60 font-body"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-offwhite mb-2 font-semibold">Email</label>
+            <input
+              type="email"
+              name="user_email"
+              id="email"
+              required
+              className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-silver/30 focus:outline-none focus:ring-2 focus:ring-silver/60 font-body"
+            />
+          </div>
+          <div>
+            <label htmlFor="message" className="block text-offwhite mb-2 font-semibold">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              required
+              rows={5}
+              className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-silver/30 focus:outline-none focus:ring-2 focus:ring-silver/60 font-body"
+            />
+          </div>
+          <button type="submit" className="w-full py-3 rounded bg-silver text-charcoal font-headline font-bold text-lg shadow-lg hover:bg-silver/90 transition-colors duration-200 tracking-wide uppercase">
             Send Message
           </button>
         </form>
-        {status && <p className="mt-4 text-gold font-body">{status}</p>}
+        {status && <p className="mt-4 text-silver font-body">{status}</p>}
       </div>
-    </section>
-  )
-}
+    </div>
+  );
+};
 
 export default Contact 
