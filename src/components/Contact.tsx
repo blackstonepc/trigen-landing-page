@@ -22,7 +22,10 @@ const Contact: React.FC = () => {
         setStatus('Message sent!')
         formRef.current?.reset()
       })
-      .catch(() => setStatus('Something went wrong. Please try again.'))
+      .catch((err) => {
+        console.error('EmailJS Error:', err)
+        setStatus('Something went wrong. Please try again.')
+      })
   }
 
   return (
@@ -33,12 +36,12 @@ const Contact: React.FC = () => {
         <p className="text-offwhite mb-10 text-lg">
           Have a question or want to discuss an opportunity? Fill out the form below, and we'll get back to you shortly.
         </p>
-        <form onSubmit={handleSubmit} className="text-left space-y-6">
+        <form ref={formRef} onSubmit={handleSubmit} className="text-left space-y-6">
           <div>
             <label htmlFor="name" className="block text-offwhite mb-2 font-semibold">Name</label>
             <input
               type="text"
-              name="user_name"
+              name="name"
               id="name"
               required
               className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-silver/30 focus:outline-none focus:ring-2 focus:ring-silver/60 font-body"
@@ -48,7 +51,7 @@ const Contact: React.FC = () => {
             <label htmlFor="email" className="block text-offwhite mb-2 font-semibold">Email</label>
             <input
               type="email"
-              name="user_email"
+              name="email"
               id="email"
               required
               className="w-full px-4 py-3 rounded bg-charcoal text-offwhite border border-silver/30 focus:outline-none focus:ring-2 focus:ring-silver/60 font-body"
