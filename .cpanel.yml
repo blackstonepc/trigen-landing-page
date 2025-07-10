@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /usr/bin/rsync -a --delete /home/ay16z7blpox7/trigen-landing-page/dist/ /home/ay16z7blpox7/public_html/ 
