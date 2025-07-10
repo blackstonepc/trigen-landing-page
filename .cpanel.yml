@@ -1,10 +1,6 @@
-# .cpanel.yml   (repo root)
-
 deployment:
   tasks:
-    # optional – usually not necessary
-    - export GIT_WORK_TREE=/home/ay16z7blpox7/repositories/trigen-landing-page
-
+    - /bin/echo "*** cPanel read my YAML at $(date) ***"
     - /opt/cpanel/ea-nodejs18/bin/npm ci
     - /opt/cpanel/ea-nodejs18/bin/npm run build
     - /usr/bin/rsync -a --delete dist/ /home/ay16z7blpox7/public_html/
