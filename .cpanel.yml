@@ -1,7 +1,21 @@
 ---
 deployment:
   tasks:
-    - echo "Attempting to create a test file..."
-    - /bin/touch /home/ay16z7blpox7/cpanel_did_run.txt
-    - echo "Test file touched at $(date)" >> /home/ay16z7blpox7/cpanel_did_run.txt
-    - echo "Test complete."
+    - export DEPLOY_DIR=/home/ay16z7blpox7/public_html
+    - export REPO_DIR=/home/ay16z7blpox7/trigen-landing-page
+    - export LOGFILE=$REPO_DIR/deployment_log.txt
+    - echo "--- Deployment started at $(date) ---" > $LOGFILE
+    
+    - echo "Changing to repository directory..." >> $LOGFILE
+    - cd $REPO_DIR >> $LOGFILE 2>&1
+    
+    - echo "Installing dependencies..." >> $LOGFILE
+    - /opt/cpanel/ea-nodejs18/bin/npm install >> $LOGFILE 2>&1
+    
+    - echo "Building application..." >> $LOGFILE
+    - /opt/cpanel/ea-nodejs18/bin/npm run build >> $LOGFILE 2>&1
+    
+    - echo "Syncing files to public_html..." >> $LOGFILE
+    - /usr/bin/rsync -a --delete $REPO_DIR/dist/ $DEPLOY_DIR/ >> $LOGFILE 2>&1
+    
+    - echo "--- Deployment finished at $(date) ---" >> $LOGFILE
