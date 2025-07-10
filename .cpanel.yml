@@ -1,5 +1,0 @@
-deployment:
-  tasks:
-    - npm ci          # no hard-coded prefix
-    - npm run build
-    - rsync -a --delete dist/ /home/ay16z7blpox7/public_html/
