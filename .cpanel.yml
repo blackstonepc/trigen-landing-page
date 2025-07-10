@@ -1,10 +1,7 @@
 ---
 deployment:
   tasks:
-    # Diagnostic step: Find the location of node and npm executables.
-    # The output of this will appear in the cPanel deployment log.
-    - echo "Searching for node executable..."
-    - find /usr /opt /bin /sbin -name "node" -type f 2>/dev/null
-    - echo "Searching for npm executable..."
-    - find /usr /opt /bin /sbin -name "npm" -type f 2>/dev/null
-    - echo "Diagnostic complete." 
+    # This task runs from the root of your repository after a pull.
+    # It simply copies the contents of the `dist` folder, which is now
+    # part of the repository, to your live public_html directory.
+    - /usr/bin/rsync -a --delete dist/ /home/ay16z7blpox7/public_html/ 
