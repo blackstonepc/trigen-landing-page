@@ -1,4 +1,12 @@
 ---
 deployment:
   tasks:
-    - /usr/bin/rsync -a --delete /home/ay16z7blpox7/trigen-landing-page/dist/ /home/ay16z7blpox7/public_html/ 
+    # Step 1: Sync the contents of the 'dist' directory up to the main public_html directory.
+    # The --exclude flag is crucial. It prevents rsync from trying to delete the 'dist'
+    # folder while it's still reading from it. This also cleans up old source files
+    # like 'src', 'package.json', etc. from the public_html directory.
+    - /usr/bin/rsync -a --delete --exclude='/dist' /home/ay16z7blpox7/public_html/dist/ /home/ay16z7blpox7/public_html/
+
+    # Step 2: Now that the contents have been moved, we can safely remove the
+    # now-empty and redundant 'dist' directory from public_html.
+    - /bin/rm -rf /home/ay16z7blpox7/public_html/dist 
